@@ -1,0 +1,86 @@
+body {
+    background-image: url("./assets/img/backgroundApp.png");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: #000000;
+    margin: 0;
+}
+img {
+    align-items: center;
+}
+.card {
+    background-color: #1e1e1e;
+    border-color: #333333;
+}
+
+.btn-darkLog {
+    background-color: #333333;
+    border-color: #444444;
+    color: #e1c10c;
+}
+
+.btn-darkLog:hover {
+    background-color: #73523f;
+    border-color: #555555;
+    color: #ffd700;
+    font-weight: bolder;
+}
+
+.btn-darkSearch {
+    background-color: #ffb700;
+    border-color: #8c8b8b;
+    color: #000000;
+}
+.btn-darkSearch:hover {
+    background-color: #ffdc7b;
+    border-color: #8c8b8b;
+    color: #000000;
+}
+
+.btn-dark {
+    background-color: #333333;
+    border-color: #8c8b8b;
+    color: #e1c10c;
+}
+
+.btn-dark:hover {
+    background-color: #73523f;
+    border-color: #555555;
+    color: #ffd700;
+    font-weight: bolder;
+}
+
+.btn-darkTable {
+    background-color: #333333;
+    border-color: #8c8b8b;
+    color: #e1c10c;
+}
+
+.btn-darkTable:hover {
+    background-color: #73523f;
+    border-color: #555555;
+    color: #ffd700;
+}
+
+.card-title, .form-label {
+    color: #ffd700;
+}
+
+.form-control::placeholder {
+    color: #000000;
+    opacity: 0.5;
+}
+
+.card-glow {
+    box-shadow: 0 0 15px 5px #a85613;
+    transition: box-shadow 0.4s ease-in-out;
+}
+
+.card-glow:hover {
+    box-shadow: 0 0 25px 10px rgba(255, 215, 0, 0.55);
+}
+
+footer {
+    padding: 0.5rem 0;
+}

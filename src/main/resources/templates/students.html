@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Management Student System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="/assets/styles/styles.css">
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark card-glow">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">University of Andes</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Students</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Subjects</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Contenido principal -->
+<div class="container mt-5 justify-content-center align-items-center">
+    <h1>List of Students</h1>
+
+    <!-- Formulario de filtro -->
+    <form th:action="@{/students/filter}" method="get" class="mb-3">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search by name or Rut" name="search">
+            <button class="btn btn-outline-secondary" type="submit">Filtrar</button>
+        </div>
+    </form>
+
+    <!-- Botón para añadir nuevo estudiante -->
+    <a th:href="@{/students/new}" class="btn btn-darkLog mb-3">Add Student</a>
+
+    <!-- Tabla de estudiantes -->
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>RUT</th>
+            <th>Name</th>
+            <th>Direction</th>
+            <th>Email</th>
+            <th>Subjects</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="student : ${students}">
+            <td th:text="${student.id}"></td>
+            <td th:text="${student.rut}"></td>
+            <td th:text="${student.name}"></td>
+            <td th:text="${student.direction}"></td>
+            <td th:text="${student.email}"></td>
+            <td>
+                <ul>
+                    <li th:each="subject : ${student.listOfSubjects}" th:text="${subject.name}"></li>
+                </ul>
+                <a th:href="@{/students/{id}/subjects/new(id=${student.id})}" class="btn btn-sm btn-darkLog">Add
+                    Subject</a>
+            </td>
+            <td>
+                <a th:href="@{/students/edit/{id}(id=${student.id})}" class="btn btn-sm btn-warning">Edit</a>
+                <a th:href="@{/students/delete/{id}(id=${student.id})}" class="btn btn-sm btn-danger"
+                   onclick="return confirm('¿Are you sure you want to delete this students?')">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Paginación -->
+    <nav aria-label="Page navigation" th:if="${totalPages > 1}">
+        <ul class="pagination justify-content-center">
+            <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled'">
+                <a class="page-link btn-darkSearch" th:href="@{/students(page=${currentPage - 1})}" tabindex="-1">Previous</a>
+            </li>
+            <li class="page-item" th:each="pageNumber : ${#numbers.sequence(1, totalPages)}"
+                th:classappend="${pageNumber == currentPage} ? 'active'">
+                <a class="page-link" th:href="@{/students(page=${pageNumber})}" th:text="${pageNumber}"></a>
+            </li>
+            <li class="page-item" th:classappend="${currentPage == totalPages} ? 'disabled'">
+                <a class="page-link btn-darkSearch" th:href="@{/students(page=${currentPage + 1})}">Next</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+<!-- Footer -->
+<footer class="bg-dark text-white text-center card-glow mt-auto ">
+    <div class="container-fluid">
+        <p class="small justify-content-center align-items-center"> © 2024 eDev_Daza. Todos los derechos reservados.</p>
+    </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
