@@ -15,5 +15,4 @@ public @interface ValidRut {
     String message() default "Not valid Rut";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
-
 }

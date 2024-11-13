@@ -1,16 +1,12 @@
 package com.daza.m6_sistemacalificacionesevfinal.dto.student;
 
-import com.daza.m6_sistemacalificacionesevfinal.dto.subject.SubjectCreateDto;
 import com.daza.m6_sistemacalificacionesevfinal.validation.ValidRut;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.Set;
 
 @Getter
 @Setter

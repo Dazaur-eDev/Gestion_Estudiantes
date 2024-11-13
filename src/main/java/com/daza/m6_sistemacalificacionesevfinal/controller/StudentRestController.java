@@ -24,7 +24,7 @@ public class StudentRestController {
 
     @GetMapping("/list")
     public ResponseEntity<Page<StudentDto>> findAll(Pageable pageable) {
-        Page<StudentDto> studentsDto = studentService.findAll(pageable);
+        Page<StudentDto> studentsDto = studentService.findAllStudents(pageable);
         return ResponseEntity.ok(studentsDto);  //200 OK with the list of students
     }
 
@@ -53,5 +53,4 @@ public class StudentRestController {
         studentService.deleteStudent(id);
         return ResponseEntity.noContent().build();
     }
-
 }

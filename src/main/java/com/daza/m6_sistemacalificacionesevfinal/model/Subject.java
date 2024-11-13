@@ -26,5 +26,4 @@ public class Subject {
 
     @ManyToMany(mappedBy = "listOfSubjects")
     private Set<Student> student = new HashSet<>();
-
 }

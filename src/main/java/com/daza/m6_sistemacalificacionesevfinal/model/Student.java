@@ -39,8 +39,6 @@ public class Student {
             inverseJoinColumns = @JoinColumn(name = "subject_id")
     )
     private Set<Subject> listOfSubjects = new HashSet<>();
-
-
 }
 
 //Creas student -> Student id name,

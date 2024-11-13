@@ -11,8 +11,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SubjectCreateDto {
-
     @NotBlank(message = "El nombre de la materia es obligatorio")
     private String name;
-
 }

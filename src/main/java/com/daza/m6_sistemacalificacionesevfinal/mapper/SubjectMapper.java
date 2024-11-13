@@ -20,11 +20,9 @@ public class SubjectMapper {
         if (subject == null) {
             return null;
         }
-
         SubjectDto subjectDto = new SubjectDto();
         subjectDto.setId(subject.getId());
         subjectDto.setName(subject.getName());
-
         return subjectDto;
     }
 
@@ -34,8 +32,6 @@ public class SubjectMapper {
         }
         Subject subject = new Subject();
         subject.setName(subjectCreateDto.getName());
-
         return subject;
     }
-
 }
