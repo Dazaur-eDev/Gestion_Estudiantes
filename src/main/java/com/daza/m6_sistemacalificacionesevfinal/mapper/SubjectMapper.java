@@ -3,7 +3,6 @@ package com.daza.m6_sistemacalificacionesevfinal.mapper;
 import com.daza.m6_sistemacalificacionesevfinal.dto.subject.SubjectCreateDto;
 import com.daza.m6_sistemacalificacionesevfinal.dto.subject.SubjectDto;
 import com.daza.m6_sistemacalificacionesevfinal.model.Subject;
-
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 

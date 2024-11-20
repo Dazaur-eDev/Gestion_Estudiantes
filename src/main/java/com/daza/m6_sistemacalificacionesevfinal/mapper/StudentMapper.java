@@ -2,12 +2,13 @@ package com.daza.m6_sistemacalificacionesevfinal.mapper;
 
 import com.daza.m6_sistemacalificacionesevfinal.dto.student.StudentCreateDto;
 import com.daza.m6_sistemacalificacionesevfinal.dto.student.StudentDto;
+import com.daza.m6_sistemacalificacionesevfinal.dto.student.StudentDtoSm;
 import com.daza.m6_sistemacalificacionesevfinal.model.Student;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
-
-import org.springframework.context.annotation.Lazy;
+import java.util.stream.Collectors;
 
 @Component
 public class StudentMapper {
@@ -28,6 +29,7 @@ public class StudentMapper {
         studentDto.setName(student.getName());
         studentDto.setDirection(student.getDirection());
         studentDto.setEmail(student.getEmail());
+        studentDto.setSubjects(student.getListOfSubjects().stream().map(subjectMapper::toDto).collect(Collectors.toSet()));
         return studentDto;
     }
 
@@ -35,7 +37,6 @@ public class StudentMapper {
         if (studentCreateDto == null) {
             return null;
         }
-        System.out.println("Mapping StudentCreateDto to Student entity: " + studentCreateDto);
         Student student = new Student();
         student.setRut(studentCreateDto.getRut());
         student.setName(studentCreateDto.getName());
@@ -44,5 +45,19 @@ public class StudentMapper {
         student.setListOfSubjects(new HashSet<>());
         return student;
     }
+
+    public StudentDtoSm toDtoSm(Student student) {
+        if (student == null) {
+            return null;
+        }
+        StudentDtoSm studentDto = new StudentDtoSm();
+        studentDto.setId(student.getId());
+        studentDto.setRut(student.getRut());
+        studentDto.setName(student.getName());
+        studentDto.setDirection(student.getDirection());
+        studentDto.setEmail(student.getEmail());
+        return studentDto;
+    }
+
 }
 

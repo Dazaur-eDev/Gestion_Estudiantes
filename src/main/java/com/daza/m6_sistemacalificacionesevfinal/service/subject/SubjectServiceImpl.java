@@ -1,9 +1,7 @@
 package com.daza.m6_sistemacalificacionesevfinal.service.subject;
 
 import com.daza.m6_sistemacalificacionesevfinal.dto.subject.SubjectCreateDto;
-
 import com.daza.m6_sistemacalificacionesevfinal.dto.subject.SubjectDto;
-
 import com.daza.m6_sistemacalificacionesevfinal.exception.PSQLException;
 import com.daza.m6_sistemacalificacionesevfinal.exception.SubjectNotFoundException;
 import com.daza.m6_sistemacalificacionesevfinal.mapper.StudentMapper;
@@ -45,7 +43,7 @@ public class SubjectServiceImpl implements SubjectService {
         try {
             subjectSaved = subjectRepository.save(subjectToAdd);
         } catch (DataIntegrityViolationException e) {
-            throw new PSQLException("La asignatura ya existe: " + subjectCreateDto.getName());
+            throw new PSQLException("The subject already exist: " + subjectCreateDto.getName());
         }
         return subjectMapper.toDto(subjectSaved);
     }
@@ -60,7 +58,7 @@ public class SubjectServiceImpl implements SubjectService {
         try {
             subjectSaved = subjectRepository.save(subject);
         } catch (DataIntegrityViolationException e) {
-            throw new PSQLException("La asignatura ya existe: " + subjectCreateDto.getName());
+            throw new PSQLException("The subject already exist: " + subjectCreateDto.getName());
         }
         return subjectMapper.toDto(subjectSaved);
     }

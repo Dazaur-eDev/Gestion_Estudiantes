@@ -2,10 +2,10 @@ package com.daza.m6_sistemacalificacionesevfinal.controller;
 
 import com.daza.m6_sistemacalificacionesevfinal.dto.student.StudentCreateDto;
 import com.daza.m6_sistemacalificacionesevfinal.dto.student.StudentDto;
+import com.daza.m6_sistemacalificacionesevfinal.dto.student.StudentDtoSm;
 import com.daza.m6_sistemacalificacionesevfinal.service.student.StudentService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -23,8 +23,8 @@ public class StudentRestController {
     private final StudentService studentService;
 
     @GetMapping("/list")
-    public ResponseEntity<Page<StudentDto>> findAll(Pageable pageable) {
-        Page<StudentDto> studentsDto = studentService.findAllStudents(pageable);
+    public ResponseEntity<Page<StudentDtoSm>> findAll(Pageable pageable) {
+        Page<StudentDtoSm> studentsDto = studentService.findAllStudentsSm(pageable);
         return ResponseEntity.ok(studentsDto);  //200 OK with the list of students
     }
 

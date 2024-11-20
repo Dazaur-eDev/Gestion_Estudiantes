@@ -1,23 +1,18 @@
 package com.daza.m6_sistemacalificacionesevfinal.dto.student;
 
-import com.daza.m6_sistemacalificacionesevfinal.dto.subject.SubjectDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.HashSet;
-import java.util.Set;
-
-@Setter
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class StudentDto {
+public class StudentDtoSm {
     private Long id;
     private String rut;
     private String name;
     private String direction;
     private String email;
-    private Set<SubjectDto> subjects = new HashSet<>();
 }

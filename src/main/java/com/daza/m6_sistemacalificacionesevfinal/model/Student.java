@@ -39,11 +39,6 @@ public class Student {
             inverseJoinColumns = @JoinColumn(name = "subject_id")
     )
     private Set<Subject> listOfSubjects = new HashSet<>();
+
 }
 
-//Creas student -> Student id name,
-//Creas subject -> Subject name
-
-///student/{id}/subjects/{subId}
-//Asignar subject a student
-//student_subject -> 1 - 2

@@ -16,14 +16,14 @@ public class StudentCreateDto {
     @ValidRut()
     private String rut;
 
-    @NotBlank(message = "El nombre es requerido")
+    @NotBlank(message = "A name is required")
     private String name;
 
-    @NotBlank(message = "La dirección es requerida")
+    @NotBlank(message = "A direction is required")
     private String direction;
 
-    @NotBlank(message = "El email es obligatorio")
-    @Email(message = "El formato de email no es valido")
+    @NotBlank(message = "An Email is mandatory")
+    @Email(message = "Format of email not valid ")
     private String email;
 }
 

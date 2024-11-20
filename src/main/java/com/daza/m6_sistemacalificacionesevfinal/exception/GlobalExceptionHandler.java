@@ -3,11 +3,13 @@ package com.daza.m6_sistemacalificacionesevfinal.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -68,8 +70,8 @@ public class GlobalExceptionHandler {
             "timestamp": "2024-11-13T00:22:32.2309867",
             "path": "uri=/api/v1/students/create"
          */
-        if (ex.getMessage().contains("El RUT ya está registrado: ")) {
-            problemDetail.setTitle("LLave duplicada");
+        if (ex.getMessage().contains("Rut already exist: ")) {
+            problemDetail.setTitle("Duplicated key");
             problemDetail.setProperty("timestamp", LocalDateTime.now());
             problemDetail.setProperty("path", request.getDescription(false));
             return new ResponseEntity<>(problemDetail, HttpStatus.BAD_REQUEST);
@@ -86,7 +88,7 @@ public class GlobalExceptionHandler {
             "timestamp": "2024-11-13T01:06:05.1608771",
             "path": "uri=/api/v1/subjects/create"
         */
-        if (ex.getMessage().contains("La asignatura ya existe: ")) {
+        if (ex.getMessage().contains("The subject already exist: ")) {
             problemDetail.setTitle("LLave duplicada");
             problemDetail.setProperty("timestamp", LocalDateTime.now());
             problemDetail.setProperty("path", request.getDescription(false));
@@ -95,5 +97,17 @@ public class GlobalExceptionHandler {
 
         //Puedo agregar otras condiciones de acuerdo al caso de errores con la bd
         return null;
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ProblemDetail handlePSQLException(MethodArgumentNotValidException ex) {
+
+        List<String> validationErros = ex.getBindingResult().getFieldErrors().stream().map(fieldError -> String.format("%s: %s", fieldError.getField(), fieldError.getDefaultMessage())).toList();
+        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);
+        problemDetail.setDetail("Check the errors field for more details");
+        problemDetail.setProperty("errors", validationErros);
+        problemDetail.setProperty("errorsCount", validationErros.size());
+        problemDetail.setProperty("timestamp", LocalDateTime.now());
+        return problemDetail;
     }
 }

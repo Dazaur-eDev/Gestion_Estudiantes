@@ -1,7 +1,5 @@
 package com.daza.m6_sistemacalificacionesevfinal.controller;
 
-import com.daza.m6_sistemacalificacionesevfinal.dto.student.StudentCreateDto;
-import com.daza.m6_sistemacalificacionesevfinal.dto.student.StudentDto;
 import com.daza.m6_sistemacalificacionesevfinal.dto.subject.SubjectCreateDto;
 import com.daza.m6_sistemacalificacionesevfinal.dto.subject.SubjectDto;
 import com.daza.m6_sistemacalificacionesevfinal.service.subject.SubjectService;
