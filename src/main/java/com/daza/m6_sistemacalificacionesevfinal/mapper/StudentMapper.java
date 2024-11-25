@@ -3,6 +3,7 @@ package com.daza.m6_sistemacalificacionesevfinal.mapper;
 import com.daza.m6_sistemacalificacionesevfinal.dto.student.StudentCreateDto;
 import com.daza.m6_sistemacalificacionesevfinal.dto.student.StudentDto;
 import com.daza.m6_sistemacalificacionesevfinal.dto.student.StudentDtoSm;
+import com.daza.m6_sistemacalificacionesevfinal.dto.student.StudentUpdateDto;
 import com.daza.m6_sistemacalificacionesevfinal.model.Student;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
@@ -33,17 +34,18 @@ public class StudentMapper {
         return studentDto;
     }
 
-    public Student toEntity(StudentCreateDto studentCreateDto) {
-        if (studentCreateDto == null) {
+    public StudentUpdateDto toDtoUpd(Student student) {
+        if (student == null) {
             return null;
         }
-        Student student = new Student();
-        student.setRut(studentCreateDto.getRut());
-        student.setName(studentCreateDto.getName());
-        student.setDirection(studentCreateDto.getDirection());
-        student.setEmail(studentCreateDto.getEmail());
-        student.setListOfSubjects(new HashSet<>());
-        return student;
+        StudentUpdateDto studentUpdateDto = new StudentUpdateDto();
+        studentUpdateDto.setId(student.getId());
+        studentUpdateDto.setRut(student.getRut());
+        studentUpdateDto.setName(student.getName());
+        studentUpdateDto.setDirection(student.getDirection());
+        studentUpdateDto.setEmail(student.getEmail());
+        studentUpdateDto.setSubjects(student.getListOfSubjects().stream().map(subjectMapper::toDto).collect(Collectors.toSet()));
+        return studentUpdateDto;
     }
 
     public StudentDtoSm toDtoSm(Student student) {
@@ -58,6 +60,21 @@ public class StudentMapper {
         studentDto.setEmail(student.getEmail());
         return studentDto;
     }
+
+    public Student toEntity(StudentCreateDto studentCreateDto) {
+        if (studentCreateDto == null) {
+            return null;
+        }
+        Student student = new Student();
+        student.setRut(studentCreateDto.getRut());
+        student.setName(studentCreateDto.getName());
+        student.setDirection(studentCreateDto.getDirection());
+        student.setEmail(studentCreateDto.getEmail());
+        student.setListOfSubjects(new HashSet<>());
+        return student;
+    }
+
+
 
 }
 

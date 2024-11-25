@@ -99,6 +99,7 @@ public class GlobalExceptionHandler {
         return null;
     }
 
+    //Para las validaciones de los DTOS
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ProblemDetail handlePSQLException(MethodArgumentNotValidException ex) {
 

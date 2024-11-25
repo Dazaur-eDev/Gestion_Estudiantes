@@ -1,21 +1,74 @@
-# Aplicación para el Control de Notas de Estudiantes - Universidad de Los Andes
+# Sistema de Calificaciones - Universidad de Los Andes
 
-La Universidad de Los Andes necesita desarrollar una aplicación que trabaje en conjunto con una API para llevar el control de notas de los estudiantes en carreras de pregrado. La aplicación debe cumplir con los siguientes requisitos funcionales.
+Este proyecto consiste en desarrollar un sistema de calificaciones para la Universidad de Los Andes, diseñado para gestionar datos de alumnos y las materias asignadas. El sistema incluye un backend RESTful API con autenticación JWT y un frontend para la visualización y gestión de datos.
+
+## Funcionalidades
+1. **Gestión de Alumnos**:
+  - Creación y consulta de alumnos.
+  - Registro de materias asociadas a cada alumno.
+2. **Autenticación JWT**:
+  - Inicio de sesión con token JWT para seguridad.
+3. **Interfaz Web**:
+  - Login de usuario con validación mediante REST API.
+  - Visualización de alumnos y sus materias en una vista estática.
 
 ---
 
-## Requisitos de la Aplicación
+## Requisitos
+### Tecnológicos:
+- **Backend**:
+  - Java 17+
+  - Spring Boot
+  - Dependencias: Spring Security, Spring Data JPA, JWT, Lombok, MySQL/PostgreSQL.
+- **Frontend**:
+  - Spring MVC
+  - Thymeleaf
+  - Bootstrap
 
-### Funcionalidad Principal
+### Herramientas:
+- IDE: IntelliJ IDEA / Eclipse
+- Cliente REST: Insomnia / Postman
+- Base de Datos: MySQL o PostgreSQL
+- Control de versiones: Git
 
-- Sistema para manejar datos de estudiantes y sus materias asignadas.
-- Desarrollo de un servicio REST utilizando **Spring** para contener la lógica de alumnos y materias.
-- Autenticación mediante **JWT (JSON Web Token)**.
-- Pruebas de endpoints para crear alumnos, materias, y usuarios usando herramientas como **Insomnia**.
-- Inicio de sesión para obtener un token JWT y registro de alumnos con materias asignadas.
-- Visualización de los datos mediante una aplicación con **Spring** que permita:
-    - Iniciar sesión a través de un formulario.
-    - Validar la autenticación contra el servicio REST.
-    - Mostrar una vista con menú que incluya la lista de alumnos y sus materias.
+---
+
+## Estructura del Proyecto
+### Backend
+- **Models**:
+  - `Alumno`: Atributos: id, rut, nombre, dirección, materiaList.
+  - `Materia`: Atributos: id, nombre, alumno.
+  - `User`: Atributos: id, name, username, email, roles.
+  - `Role`: Enumeración con valores `ROLE_ADMIN`, `ROLE_CLIENT`.
+- **Repositories**:
+  - `AlumnoRepository`
+  - `MateriaRepository`
+  - `UserRepository`
+- **Services**:
+  - `AlumnoService`: Métodos `save`, `findAll`.
+  - `MateriaService`: Método `save`.
+  - `UserService`: Métodos `signin`, `signup`, `loadUserByUsername`.
+- **Controllers**:
+  - `AlumnoController`: Métodos `findAll`, `save`.
+  - `MateriaController`: Método `save`.
+  - `UserController`: Métodos `signin`, `signup`.
+- **Security**:
+  - `JwtTokenProvider`, `JwtTokenFilter`, `JwtTokenFilterConfigurer`.
+  - `WebSecurityConfig`: Configuración de seguridad de la aplicación.
+- **Logger**: Configurado para registrar eventos.
+
+### Frontend
+- **DTOs**:
+  - `AlumnoDTO`
+  - `MateriaDTO`
+  - `UserDTO`
+- **Services**:
+  - `AlumnoService`: Método `findAll` (consumo de API REST).
+  - `UserService`: Método `signin` (inicio de sesión).
+- **Controllers**:
+  - `LoginController`: Métodos `login`, `home`.
+- **Vistas**:
+  - `login.html`: Formulario de inicio de sesión.
+  - `home.html`: Vista de alumnos y sus materias.
 
 ---

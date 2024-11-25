@@ -1,8 +1,6 @@
 package com.daza.m6_sistemacalificacionesevfinal.service.student;
 
-import com.daza.m6_sistemacalificacionesevfinal.dto.student.StudentCreateDto;
-import com.daza.m6_sistemacalificacionesevfinal.dto.student.StudentDto;
-import com.daza.m6_sistemacalificacionesevfinal.dto.student.StudentDtoSm;
+import com.daza.m6_sistemacalificacionesevfinal.dto.student.*;
 import com.daza.m6_sistemacalificacionesevfinal.exception.PSQLException;
 import com.daza.m6_sistemacalificacionesevfinal.exception.StudentNotFoundException;
 import com.daza.m6_sistemacalificacionesevfinal.mapper.StudentMapper;
@@ -17,6 +15,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -53,31 +53,51 @@ public class StudentServiceImpl implements StudentService {
         return studentMapper.toDto(studentSaved);
     }
 
-
     @Override
-    public StudentDto updateStudent(Long id, StudentCreateDto studentCreateDto) {
+    public StudentDtoSm updateStudent(Long id, StudentDtoSm studentDtoSm) {
         Student student = studentRepository.findById(id)
                 .orElseThrow(() -> new StudentNotFoundException("Student with id " + id + " not found"));
 
-        Boolean rutExist = studentRepository.existsByRut(studentCreateDto.getRut());
-        if (rutExist){
-            throw new PSQLException("Rut already exist: " + studentCreateDto.getRut());
+        if (studentDtoSm.getName() != null) {
+            student.setName(studentDtoSm.getName());
         }
-
-        if (studentCreateDto.getRut() != null){
-            student.setRut(studentCreateDto.getRut());
+        if (studentDtoSm.getDirection() != null) {
+            student.setDirection(studentDtoSm.getDirection());
         }
-        if (studentCreateDto.getName() != null) {
-            student.setName(studentCreateDto.getName());
-        }
-        if (studentCreateDto.getDirection() != null) {
-            student.setDirection(studentCreateDto.getDirection());
-        }
-        if (studentCreateDto.getEmail() != null) {
-            student.setEmail(studentCreateDto.getEmail());
+        if (studentDtoSm.getEmail() != null) {
+            student.setEmail(studentDtoSm.getEmail());
         }
 
         Student studentSaved = studentRepository.save(student);
+        return studentMapper.toDtoSm(studentSaved);
+    }
+
+    @Override
+    public StudentDto updateStudent(Long id, StudentUpdateDto studentUpdateDto) {
+        Student student = studentRepository.findById(id)
+                .orElseThrow(() -> new StudentNotFoundException("Student with id " + id + " not found"));
+
+        if (studentUpdateDto.getRut() != null) {
+            student.setRut(studentUpdateDto.getRut());
+        }
+
+        if (studentUpdateDto.getName() != null) {
+            student.setName(studentUpdateDto.getName());
+        }
+        if (studentUpdateDto.getDirection() != null) {
+            student.setDirection(studentUpdateDto.getDirection());
+        }
+        if (studentUpdateDto.getEmail() != null) {
+            student.setEmail(studentUpdateDto.getEmail());
+        }
+        if (studentUpdateDto.getSubjects() != null) {
+            student.setListOfSubjects(studentUpdateDto.getSubjects().stream()
+                    .map(subjectMapper::toEntity)
+                    .collect(Collectors.toSet()));
+        }
+
+        Student studentSaved = studentRepository.save(student);
+        System.out.println(studentSaved.getListOfSubjects());
         return studentMapper.toDto(studentSaved);
     }
 
@@ -98,7 +118,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Page<StudentDto> findStudentByRut(String rut, Pageable pageable) {
-        return null;
+        return studentRepository.findByRutContains(rut, pageable).map(studentMapper::toDto);
     }
 
     @Override
@@ -107,6 +127,16 @@ public class StudentServiceImpl implements StudentService {
                 .map(studentMapper::toDtoSm);
     }
 
+    @Override
+    public StudentDto searchStudentId(Long id) {
+        Student student = studentRepository.findById(id).orElseThrow(() -> new StudentNotFoundException("Student with id " + id + " not found"));
+        return studentMapper.toDto(student);
+    }
 
+    @Override
+    public StudentUpdateDto searchStudentIdForUpdate(Long id) {
+        Student student = studentRepository.findById(id).orElseThrow(() -> new StudentNotFoundException("Student with id " + id + " not found"));
+        return studentMapper.toDtoUpd(student);
+    }
 }
 

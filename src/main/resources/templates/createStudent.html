@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Student</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <link href="/css/styles.css" rel="stylesheet">
+</head>
+<body class="d-flex flex-column min-vh-100">
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark card-glow">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">University of Andes</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Students</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Subjects</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Contenido principal -->
+<div class="container mt-5 justify-content-center align-items-center">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header btn-darkTable">
+                    <h3 class="mb-0"><i class="bi bi-person-plus-fill me-2"></i>Create New Student</h3>
+                </div>
+                <div class="card-body">
+                    <form th:action="@{/students/create}" th:object="${studentCreateDto}" method="post">
+                        <div class="mb-3">
+                            <label for="rut" class="form-label"><i class="bi bi-person-badge me-2"></i>RUT</label>
+                            <input type="text" class="form-control" id="rut" th:field="*{rut}" required>
+                            <small class="text-danger" th:if="${#fields.hasErrors('rut')}" th:errors="*{rut}"></small>
+                        </div>
+                        <div class="mb-3">
+                            <label for="name" class="form-label"><i class="bi bi-person me-2"></i>Name</label>
+                            <input type="text" class="form-control" id="name" th:field="*{name}" required>
+                            <small class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></small>
+                        </div>
+                        <div class="mb-3">
+                            <label for="direction" class="form-label"><i class="bi bi-geo-alt me-2"></i>Direction</label>
+                            <input type="text" class="form-control" id="direction" th:field="*{direction}" required>
+                            <small class="text-danger" th:if="${#fields.hasErrors('direction')}" th:errors="*{direction}"></small>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label"><i class="bi bi-envelope me-2"></i>Email</label>
+                            <input type="email" class="form-control" id="email" th:field="*{email}" required>
+                            <small class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-warning">
+                                <i class="bi bi-check-circle me-2"></i>Create Student
+                            </button>
+                            <a href="#" th:href="@{/students}" class="btn btn-secondary">
+                                <i class="bi bi-x-circle me-2"></i>Cancel
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Footer -->
+<footer class="bg-dark text-white text-center card-glow mt-auto ">
+    <div class="container-fluid">
+        <p class="small justify-content-center align-items-center"> © 2024 eDev_Daza. Todos los derechos reservados.</p>
+    </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

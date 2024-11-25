@@ -39,8 +39,8 @@ public class StudentRestController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<StudentDto> update(@PathVariable Long id, @Valid @RequestBody StudentCreateDto studentCreateDto) {
-        StudentDto updatedStudent = studentService.updateStudent(id, studentCreateDto);
+    public ResponseEntity<StudentDtoSm> update(@PathVariable Long id, @Valid @RequestBody StudentDtoSm studentDtoSm) {
+        StudentDtoSm updatedStudent = studentService.updateStudent(id, studentDtoSm);
         if (updatedStudent != null) {
             return ResponseEntity.ok(updatedStudent); // 200 OK with the updated student
         } else {

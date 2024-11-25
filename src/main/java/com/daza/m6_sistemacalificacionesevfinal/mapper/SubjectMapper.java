@@ -25,6 +25,15 @@ public class SubjectMapper {
         return subjectDto;
     }
 
+    public Subject toEntity(SubjectDto subjectDto) {
+        if (subjectDto == null) {
+            return null;
+        }
+        Subject subject = new Subject();
+        subject.setName(subjectDto.getName());
+        return subject;
+    }
+
     public Subject toEntity(SubjectCreateDto subjectCreateDto) {
         if (subjectCreateDto == null) {
             return null;
